@@ -1,0 +1,48 @@
+# Build outputs
+bin/
+obj/
+out/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.suo
+*.userprefs
+
+# Rider
+.idea/
+
+# dotnet
+*.dll
+*.exe
+*.pdb
+*.nupkg
+*.snupkg
+
+# Entity Framework migrations (keep the files, ignore snapshots if needed)
+# Uncomment if you don't want to track migrations:
+# **/Migrations/
+
+# Environment / secrets
+.env
+.env.*
+appsettings.Development.json
+secrets.json
+
+# Logs
+logs/
+*.log
+
+# Docker
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test results
+TestResults/
+coverage/
+*.trx
+*.coveragexml
