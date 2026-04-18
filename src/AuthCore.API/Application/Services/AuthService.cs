@@ -36,8 +36,12 @@ public class AuthService(AppDbContext db, ITokenService tokenService, ILogger<Au
         var user = await db.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
 
         if (user is null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+        {
+            logger.LogWarning("Failed login attempt for email {Email} from IP {IpAddress}", request.Email, ipAddress);
             throw new InvalidCredentialsException();
+        }
 
+        logger.LogInformation("User {UserId} logged in from IP {IpAddress}", user.Id, ipAddress);
         return await CreateAuthResponseAsync(user, ipAddress, userAgent);
     }
 

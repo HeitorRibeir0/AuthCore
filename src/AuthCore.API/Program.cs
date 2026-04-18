@@ -56,6 +56,7 @@ builder.Services.AddAuthRateLimiting();
 var app = builder.Build();
 
 app.UseSerilogRequestLogging();
+app.UseMiddleware<AuthCore.API.Middleware.RequestIdMiddleware>();
 app.UseMiddleware<AuthCore.API.Middleware.ExceptionHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseRateLimiter();
