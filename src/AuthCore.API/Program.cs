@@ -75,8 +75,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthRateLimiting();
+builder.Services.AddSwaggerWithJwt();
 
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+    app.UseSwaggerUI();
 
 app.UseSerilogRequestLogging();
 app.UseMiddleware<RequestIdMiddleware>();
