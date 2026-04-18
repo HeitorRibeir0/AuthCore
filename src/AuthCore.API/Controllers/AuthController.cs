@@ -1,8 +1,10 @@
 using AuthCore.API.Application.Interfaces;
 using AuthCore.API.DTOs;
 using AuthCore.API.Exceptions;
+using AuthCore.API.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace AuthCore.API.Controllers;
 
@@ -13,6 +15,7 @@ public class AuthController(IAuthService authService, IWebHostEnvironment env) :
     private const string RefreshTokenCookie = "refreshToken";
 
     [HttpPost("register")]
+    [EnableRateLimiting(RateLimitingExtensions.RegisterPolicy)]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
         var (response, rawRefreshToken) = await authService.RegisterAsync(request, GetIpAddress(), GetUserAgent());
@@ -22,6 +25,7 @@ public class AuthController(IAuthService authService, IWebHostEnvironment env) :
 
     [HttpPost("register/admin")]
     [Authorize(Roles = "Admin")]
+    [EnableRateLimiting(RateLimitingExtensions.RegisterPolicy)]
     public async Task<IActionResult> RegisterAdmin([FromBody] RegisterRequest request)
     {
         var (response, rawRefreshToken) = await authService.RegisterAsync(request, GetIpAddress(), GetUserAgent(), isAdmin: true);
@@ -30,6 +34,7 @@ public class AuthController(IAuthService authService, IWebHostEnvironment env) :
     }
 
     [HttpPost("login")]
+    [EnableRateLimiting(RateLimitingExtensions.LoginPolicy)]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
         var (response, rawRefreshToken) = await authService.LoginAsync(request, GetIpAddress(), GetUserAgent());

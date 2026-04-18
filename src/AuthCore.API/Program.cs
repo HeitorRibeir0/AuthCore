@@ -2,6 +2,7 @@ using System.Text;
 using AuthCore.API.Application.Interfaces;
 using AuthCore.API.Application.Services;
 using AuthCore.API.Application.Validators;
+using AuthCore.API.Extensions;
 using AuthCore.API.Infrastructure.Data;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -50,12 +51,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAuthorization();
+builder.Services.AddAuthRateLimiting();
 
 var app = builder.Build();
 
 app.UseSerilogRequestLogging();
 app.UseMiddleware<AuthCore.API.Middleware.ExceptionHandlerMiddleware>();
 app.UseHttpsRedirection();
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

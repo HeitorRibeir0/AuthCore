@@ -1,14 +1,17 @@
 using System.Security.Claims;
 using AuthCore.API.Application.Interfaces;
 using AuthCore.API.DTOs;
+using AuthCore.API.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace AuthCore.API.Controllers;
 
 [ApiController]
 [Route("api/v1/users")]
 [Authorize]
+[EnableRateLimiting(RateLimitingExtensions.GeneralPolicy)]
 public class UsersController(IUserService userService) : ControllerBase
 {
     [HttpGet]
