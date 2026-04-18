@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{12E0DE86-3C50-43C3-87A4-EF901BEC0FD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthCore.API", "src\AuthCore.API\AuthCore.API.csproj", "{C1173D6D-DC39-4190-9511-A7AAE44A20C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3AC0B487-E5D1-47EF-A43D-7797EB41CF83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthCore.Tests", "tests\AuthCore.Tests\AuthCore.Tests.csproj", "{154FD8CF-6A10-4183-9564-B198F2189035}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1173D6D-DC39-4190-9511-A7AAE44A20C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1173D6D-DC39-4190-9511-A7AAE44A20C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1173D6D-DC39-4190-9511-A7AAE44A20C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1173D6D-DC39-4190-9511-A7AAE44A20C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{154FD8CF-6A10-4183-9564-B198F2189035}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{154FD8CF-6A10-4183-9564-B198F2189035}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{154FD8CF-6A10-4183-9564-B198F2189035}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{154FD8CF-6A10-4183-9564-B198F2189035}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C1173D6D-DC39-4190-9511-A7AAE44A20C6} = {12E0DE86-3C50-43C3-87A4-EF901BEC0FD9}
+		{154FD8CF-6A10-4183-9564-B198F2189035} = {3AC0B487-E5D1-47EF-A43D-7797EB41CF83}
+	EndGlobalSection
+EndGlobal
