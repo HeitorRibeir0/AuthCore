@@ -1,6 +1,7 @@
 using AuthCore.API.Application.Interfaces;
 using AuthCore.API.DTOs;
 using AuthCore.API.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthCore.API.Controllers;
@@ -15,6 +16,15 @@ public class AuthController(IAuthService authService, IWebHostEnvironment env) :
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
         var (response, rawRefreshToken) = await authService.RegisterAsync(request, GetIpAddress(), GetUserAgent());
+        SetRefreshTokenCookie(rawRefreshToken);
+        return Created(string.Empty, response);
+    }
+
+    [HttpPost("register/admin")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> RegisterAdmin([FromBody] RegisterRequest request)
+    {
+        var (response, rawRefreshToken) = await authService.RegisterAsync(request, GetIpAddress(), GetUserAgent(), isAdmin: true);
         SetRefreshTokenCookie(rawRefreshToken);
         return Created(string.Empty, response);
     }

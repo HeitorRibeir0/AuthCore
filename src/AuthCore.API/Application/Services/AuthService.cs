@@ -1,5 +1,6 @@
 using AuthCore.API.Application.Interfaces;
 using AuthCore.API.DTOs;
+using AuthCore.API.Enums;
 using AuthCore.API.Entities;
 using AuthCore.API.Exceptions;
 using AuthCore.API.Infrastructure.Data;
@@ -9,7 +10,7 @@ namespace AuthCore.API.Application.Services;
 
 public class AuthService(AppDbContext db, ITokenService tokenService, ILogger<AuthService> logger) : IAuthService
 {
-    public async Task<(AuthResponse Response, string RawRefreshToken)> RegisterAsync(RegisterRequest request, string ipAddress, string userAgent)
+    public async Task<(AuthResponse Response, string RawRefreshToken)> RegisterAsync(RegisterRequest request, string ipAddress, string userAgent, bool isAdmin = false)
     {
         var emailTaken = await db.Users.AnyAsync(u => u.Email == request.Email);
         if (emailTaken)
@@ -20,7 +21,8 @@ public class AuthService(AppDbContext db, ITokenService tokenService, ILogger<Au
             Id = Guid.NewGuid(),
             Name = request.Name,
             Email = request.Email,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password)
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
+            Role = isAdmin ? Role.Admin : Role.User
         };
 
         db.Users.Add(user);
