@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 
+
 namespace AuthCore.API.Controllers;
 
 [ApiController]
 [Route("api/v1/auth")]
-public class AuthController(IAuthService authService, IWebHostEnvironment env) : ControllerBase
+public class AuthController(IAuthService authService, IPasswordResetService passwordResetService, IWebHostEnvironment env) : ControllerBase
 {
     private const string RefreshTokenCookie = "refreshToken";
 
@@ -62,6 +63,21 @@ public class AuthController(IAuthService authService, IWebHostEnvironment env) :
             await authService.LogoutAsync(rawRefreshToken);
 
         ClearRefreshTokenCookie();
+        return NoContent();
+    }
+
+    [HttpPost("forgot-password")]
+    [EnableRateLimiting(RateLimitingExtensions.RegisterPolicy)]
+    public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
+    {
+        await passwordResetService.ForgotPasswordAsync(request);
+        return Ok(new { message = "If this email is registered, you will receive reset instructions." });
+    }
+
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+    {
+        await passwordResetService.ResetPasswordAsync(request);
         return NoContent();
     }
 

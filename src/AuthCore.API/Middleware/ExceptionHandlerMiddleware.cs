@@ -25,6 +25,7 @@ public class ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionH
             InvalidCredentialsException => (StatusCodes.Status401Unauthorized, exception.Message),
             InvalidRefreshTokenException => (StatusCodes.Status401Unauthorized, exception.Message),
             InvalidPasswordException => (StatusCodes.Status400BadRequest, exception.Message),
+            InvalidResetTokenException => (StatusCodes.Status401Unauthorized, exception.Message),
             KeyNotFoundException e => (StatusCodes.Status404NotFound, e.Message),
             _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred.")
         };

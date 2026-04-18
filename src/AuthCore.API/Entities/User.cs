@@ -12,4 +12,5 @@ public class User
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public ICollection<RefreshToken> RefreshTokens { get; set; } = [];
+    public ICollection<PasswordResetToken> PasswordResetTokens { get; set; } = [];
 }
