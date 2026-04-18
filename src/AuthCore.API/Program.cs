@@ -53,6 +53,7 @@ builder.Services.AddAuthorization();
 var app = builder.Build();
 
 app.UseSerilogRequestLogging();
+app.UseMiddleware<AuthCore.API.Middleware.ExceptionHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
